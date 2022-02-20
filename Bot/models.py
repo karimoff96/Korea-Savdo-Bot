@@ -11,7 +11,6 @@ class User(models.Model):
 
 
 class Elon(models.Model):
-    elon_id = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(max_length=50, blank=True, null=True)
     first_name = models.CharField(max_length=100, blank=True, null=True)
@@ -40,4 +39,4 @@ class Elon(models.Model):
     step = models.IntegerField(default=0)
 
     def __int__(self):
-        return self.elon_id
+        return self.first_name

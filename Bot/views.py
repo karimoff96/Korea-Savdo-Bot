@@ -49,7 +49,6 @@ def start(message):
         elon = Elon.objects.create(
             user=bot_user
         )
-        elon.elon_id = elon.id
         elon.save()
 
     else:
@@ -69,7 +68,6 @@ def start(message):
         elon = Elon.objects.create(
             user=bot_user
         )
-        elon.elon_id = elon.id
         elon.save()
 
 
@@ -79,8 +77,7 @@ def echo_all(message):
     bot_elon = Elon.objects.get(user=bot_user, active=False)
     print(message.text)
     if message.text == '🚘Avtomobil':
-        print('avto')
-        # bot_elon.category = Category.objects.get(id=1)
+
         bot_elon.category = message.text[1:]
         bot_elon.step = 1
         bot_elon.save()
@@ -257,7 +254,6 @@ def echo_all(message):
         elon = Elon.objects.create(
             user=bot_user
         )
-        elon.elon_id = elon.id
         elon.save()
 
     elif bot_elon.step == 11 and message.text.isdigit():
@@ -270,24 +266,28 @@ def echo_all(message):
 
         # Admin Mode
     elif message.text == '/send':
-        if message.chat.id == 419717087:
+        if message.chat.id == Admin:
             markup = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
             b = types.KeyboardButton('🔙Ortga')
             markup.add(b)
             mesg = bot.send_message(message.chat.id, '<code>‼️E`lonni kiriting:</code>', reply_markup=markup)
             bot.register_next_step_handler(mesg, test)
     elif message.text == "/stats":
-        if message.chat.id == 419717087:
+        print('stats')
+        if message.chat.id == Admin:
             print(Elon.objects.filter(active=True).count())
             user = len(User.objects.all())
             elon = len(Elon.objects.filter(active=True))
             bot.send_message(message.chat.id,
                              f'🔰<b><i>Bot statistics:</i></b>\n<b>📄Elonlar soni:</b> {elon}\n👥<b>Foydalanuvchilar:</b> {user}\n🧑🏻‍💻<b>Creator:</b><i> @dkarimoff96</i>')
-    elif message.text == "E`lonlarim":
-        print('elon')
-        elonlar = Elon.objects.get(user=bot_user, active=True)
-        elon = Elon.objects.filter(order__id=elonlar.last().id)
-        bot.send_message(message.from_user.id, f'{elon}')
+    elif message.text == "📄E`lonlarim":
+        elon = Elon.objects.filter(user__user_id=message.from_user.id, active=True)
+        for bot_elon in elon:
+            text = f"<u><b>📋E`loningiz ma`lumotlari:</b></u>\n<b>👉Elon turi:</b> <i>{bot_elon.category}</i>.\n👤<b>Ism:</b> <i>{bot_elon.first_name}.</i>\n📞<b>Tel raqam:</b> <i>{bot_elon.phone_number}.</i>\n<b>🏠Manzil:</b> <i>{bot_elon.address}</i>.\n 🚘<b>Nomi:</b> <i>{bot_elon.model}</i>.\n⚙️<b>Yili:</b> <i>{bot_elon.year}</i>.\n🐎<b>Probegi:</b> <i>{bot_elon.journey} km</i>.\n📁<b>Yuridik holati:</b> <i>{bot_elon.policy}.</i> \n⏫<b>Korobka:</b> <i>{bot_elon.korobka}</i>.\n⛽️<b>Yonilg`i:</b> <i>{bot_elon.fuel}</i>.\nℹ️<b>Qo`shimcha:</b> <i>{bot_elon.comment}</i>\n💸<b>Narxi:</b> <i>{bot_elon.price} ￦</i> \n"
+            bot.send_media_group(chat_id=message.from_user.id,
+                                 media=[InputMediaPhoto(bot_elon.image, caption=text, parse_mode="HTML"),
+                                        InputMediaPhoto(bot_elon.image1),
+                                        InputMediaPhoto(bot_elon.image2)])
     elif message.text == '🔙Ortga':
         markup = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
         btn = types.KeyboardButton('🔰Yordam')
@@ -397,7 +397,6 @@ def call_data(call):
         elon = Elon.objects.create(
             user=bot_user
         )
-        elon.elon_id = elon.id
         elon.save()
 
     elif call.data == 'cancel':
@@ -414,7 +413,6 @@ def call_data(call):
         elon = Elon.objects.create(
             user=bot_user
         )
-        elon.elon_id = elon.id
         elon.save()
 
     print('ureeeeeeeee')
