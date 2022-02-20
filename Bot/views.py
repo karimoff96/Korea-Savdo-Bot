@@ -56,7 +56,7 @@ def start(message):
         # btn2 = types.KeyboardButton('Telefon')
         # btn3 = types.KeyboardButton('Notebook')
         markup.add(btn1, btn, btn2)
-        bot.send_message(message.chat.id, text)
+        bot.send_message(message.chat.id, text, reply_markup=markup)
         bot_user = User.objects.create(user_id=message.from_user.id, username=message.from_user.username)
         bot_user.save()
         elon = Elon.objects.create(
