@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['reklama-bot.herokuapp.com', '127.0.0.1']
 
-# Application definition
+# Application definition            reklama-bot.herokuapp.com
 
 INSTALLED_APPS = [
     'django.contrib.admin',
