@@ -1,14 +1,9 @@
 import types
-from PIL import Image
-from django.shortcuts import render
 from telebot import *
 from django.shortcuts import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import telebot
-from .models import *
 from django.core.files.base import ContentFile
-from PIL import Image
-from telebot.types import InputMediaPhoto, InputMediaVideo
+from telebot.types import InputMediaPhoto
 from .controller import *
 
 # Create your views here.
@@ -87,7 +82,8 @@ def echo_all(message):
         markup.add(btn1)
         bot.send_message(message.chat.id, text, reply_markup=markup)
         bot.send_message(message.chat.id, "<b>👤Ismingizni kiriting</b>")
-    elif bot_elon.step == 1 and len(message.text) > 0 and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 1 and len(
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         print('ism')
         bot_elon.first_name = message.text
         bot_elon.step = 2
@@ -101,17 +97,20 @@ def echo_all(message):
             bot.send_message(message.chat.id, "<b>🏠Manzilni kiriting:\nMasalan:</b><i>Busan, Gimhae</i>")
         else:
             bot.send_message(message.chat.id, "<code>Iltimos namunada keltirilgan shakldagi raqam kiriting</code>")
-    elif bot_elon.step == 3 and len(message.text) > 0 and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 3 and len(
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         bot_elon.address = message.text
         bot_elon.step = 4
         bot_elon.save()
         bot.send_message(message.chat.id, "<b>🚘Avtomobil nomi:\nMasalan:</b><i>Hyundai Sonata N20</i>")
-    elif bot_elon.step == 4 and len(message.text) > 0 and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 4 and len(
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         bot_elon.model = message.text
         bot_elon.step = 5
         bot_elon.save()
         bot.send_message(message.chat.id, "<b>⚙Ishlab chiqarilgan yili:\nMasalan:</b><i>2005</i>")
-    elif bot_elon.step == 5 and len(message.text) == 4 and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 5 and len(
+            message.text) == 4 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         print(message.text)
         print(type(message.text))
         if 1999 <= int(message.text) <= 2022:
@@ -183,7 +182,7 @@ def echo_all(message):
         btn2 = types.KeyboardButton('Boshqa')
         markup.add(btn, btn1, btn2)
         bot.send_message(message.chat.id, '<b>⛽Yoqilg`i turi</b>', reply_markup=markup)
-    elif bot_elon.step == 9 and message.text == 'Benzin' and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 9 and message.text == 'Benzin' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         bot_elon.step = 10
         bot_elon.fuel = message.text
         bot_elon.save()
@@ -192,7 +191,7 @@ def echo_all(message):
         btn1 = types.KeyboardButton('🛑Bekor qilish')
         markup.add(btn1)
         bot.send_message(message.chat.id, text2, reply_markup=markup)
-    elif bot_elon.step == 9 and message.text == 'LPG' and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 9 and message.text == 'LPG' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         bot_elon.step = 10
         bot_elon.fuel = message.text
         bot_elon.save()
@@ -201,7 +200,7 @@ def echo_all(message):
         btn1 = types.KeyboardButton('🛑Bekor qilish')
         markup.add(btn1)
         bot.send_message(message.chat.id, text2, reply_markup=markup)
-    elif bot_elon.step == 9 and message.text == 'Boshqa' and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 9 and message.text == 'Boshqa' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         bot_elon.step = 10
         bot_elon.fuel = message.text
         bot_elon.save()
@@ -210,20 +209,14 @@ def echo_all(message):
         btn1 = types.KeyboardButton('🛑Bekor qilish')
         markup.add(btn1)
         bot.send_message(message.chat.id, text2, reply_markup=markup)
-    elif bot_elon.step == 10 and len(message.text) > 0 and message.text != '🛑Bekor qilish':
+    elif bot_elon.step == 10 and len(
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
         bot_elon.step = 11
         bot_elon.comment = message.text
         bot_elon.save()
         bot.send_message(message.chat.id, "<b>💸Narxini kiriting:\nMasalan:</b> <i>1600000</i>")
     elif bot_elon.step == 12 and message.text != '🛑Bekor qilish':
         bot.send_message(message.chat.id, "<b>🌅Iltimos rasm yuboring!</b>")
-        # markup = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
-        # btn = types.KeyboardButton('OK')
-        # btn1 = types.KeyboardButton('Qayta to`ldirish')
-        # markup.add(btn, btn1)
-        # bot.send_message(message.chat.id,
-        #                  f"Sizning ma`lumotlaringiz:\nIsm:{bot_elon.first_name}\nTel raqam: {bot_elon.phone_number}\nManzil:{bot_elon.city}\n\nMa`lumotlaringiz to`gri bo`lsa 'OK' tugasini ask holda 'Qayta to`ldirish' tugmasini bosing",
-        #                  reply_markup=markup)
     elif bot_elon.step == 6 and message.text == 'OK':
         bot_elon.active = True
         bot_elon.step = 7
@@ -314,7 +307,16 @@ def test(message):
 
     else:
         for m in User.objects.all():
-            bot.forward_message(m.user_id, message.chat.id, message.id)
+            bot.copy_message(chat_id=m.user_id, from_chat_id=message.chat.id, message_id=message.id)
+        markup = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+        btn = types.KeyboardButton('🔰Yordam')
+        btn1 = types.KeyboardButton('🚘Avtomobil')
+        btn2 = types.KeyboardButton('📄E`lonlarim')
+        # btn2 = types.KeyboardButton('Telefon')
+        # btn3 = types.KeyboardButton('Notebook')
+        markup.add(btn1, btn, btn2)
+        bot.send_message(message.from_user.id, '<code><i>E`lon foydalanuvchilarga muvaffaqiyatli jo`natildi</i></code>',
+                         reply_markup=markup)
 
 
 @bot.message_handler(content_types=['photo', 'file'])
