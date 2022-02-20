@@ -72,7 +72,6 @@ def echo_all(message):
     bot_elon = Elon.objects.get(user=bot_user, active=False)
     print(message.text)
     if message.text == '🚘Avtomobil':
-
         bot_elon.category = message.text[1:]
         bot_elon.step = 1
         bot_elon.save()
@@ -83,7 +82,7 @@ def echo_all(message):
         bot.send_message(message.chat.id, text, reply_markup=markup)
         bot.send_message(message.chat.id, "<b>👤Ismingizni kiriting</b>")
     elif bot_elon.step == 1 and len(
-            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         print('ism')
         bot_elon.first_name = message.text
         bot_elon.step = 2
@@ -98,19 +97,19 @@ def echo_all(message):
         else:
             bot.send_message(message.chat.id, "<code>Iltimos namunada keltirilgan shakldagi raqam kiriting</code>")
     elif bot_elon.step == 3 and len(
-            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         bot_elon.address = message.text
         bot_elon.step = 4
         bot_elon.save()
         bot.send_message(message.chat.id, "<b>🚘Avtomobil nomi:\nMasalan:</b><i>Hyundai Sonata N20</i>")
     elif bot_elon.step == 4 and len(
-            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         bot_elon.model = message.text
         bot_elon.step = 5
         bot_elon.save()
         bot.send_message(message.chat.id, "<b>⚙Ishlab chiqarilgan yili:\nMasalan:</b><i>2005</i>")
     elif bot_elon.step == 5 and len(
-            message.text) == 4 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+            message.text) == 4 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         print(message.text)
         print(type(message.text))
         if 1999 <= int(message.text) <= 2022:
@@ -182,7 +181,7 @@ def echo_all(message):
         btn2 = types.KeyboardButton('Boshqa')
         markup.add(btn, btn1, btn2)
         bot.send_message(message.chat.id, '<b>⛽Yoqilg`i turi</b>', reply_markup=markup)
-    elif bot_elon.step == 9 and message.text == 'Benzin' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+    elif bot_elon.step == 9 and message.text == 'Benzin' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         bot_elon.step = 10
         bot_elon.fuel = message.text
         bot_elon.save()
@@ -191,7 +190,7 @@ def echo_all(message):
         btn1 = types.KeyboardButton('🛑Bekor qilish')
         markup.add(btn1)
         bot.send_message(message.chat.id, text2, reply_markup=markup)
-    elif bot_elon.step == 9 and message.text == 'LPG' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+    elif bot_elon.step == 9 and message.text == 'LPG' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         bot_elon.step = 10
         bot_elon.fuel = message.text
         bot_elon.save()
@@ -200,7 +199,7 @@ def echo_all(message):
         btn1 = types.KeyboardButton('🛑Bekor qilish')
         markup.add(btn1)
         bot.send_message(message.chat.id, text2, reply_markup=markup)
-    elif bot_elon.step == 9 and message.text == 'Boshqa' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+    elif bot_elon.step == 9 and message.text == 'Boshqa' and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         bot_elon.step = 10
         bot_elon.fuel = message.text
         bot_elon.save()
@@ -210,7 +209,7 @@ def echo_all(message):
         markup.add(btn1)
         bot.send_message(message.chat.id, text2, reply_markup=markup)
     elif bot_elon.step == 10 and len(
-            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam':
+            message.text) > 0 and message.text != '🛑Bekor qilish' and message.text != '🔰Yordam' and message.text != '📄E`lonlarim':
         bot_elon.step = 11
         bot_elon.comment = message.text
         bot_elon.save()
