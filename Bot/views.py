@@ -217,7 +217,7 @@ def echo_all(message):
         bot.send_message(message.chat.id, "<b>🌅Iltimos rasm yuboring!</b>")
     elif message.text == "🔰Yordam":
         bot.send_message(message.chat.id,
-                         '<u>ℹ️Bu bot orqali telegram orqali uzingizning elonlaringizni qoldirishingiz mumkin.\nRo`yhatdan o`tib bo`lganingizdan so`ng, rukunni tanlab, eloningiz bo`yicha anketani to`ldiring. \n<i>Bizning kanalga a`zo bo`ling: https://t.me/korea_elonlar\nE`lon berish uchun: https://t.me/korea_savdo_bot</i></u>')
+                         '<u>ℹ️Bu bot orqali telegram kanalda o`zingizning elonlaringizni qoldirishingiz mumkin.\nEloningiz bo`yicha anketani to`ldiring. \n<i>Bizning kanalga a`zo bo`ling: https://t.me/korea_elonlar\nE`lon berish uchun: https://t.me/korea_savdo_bot</i></u>')
     elif message.text == '🛑Bekor qilish':
         markup = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
         btn = types.KeyboardButton('🔰Yordam')
@@ -309,9 +309,6 @@ def photo_handler(message):
     bot_user = User.objects.get(user_id=message.from_user.id)
     bot_elon = Elon.objects.get(user=bot_user, active=False)
     if bot_elon.step == 12:
-        print('rasmlar')
-        print(message)
-        print(message.text)
         raw = message.photo[1].file_id
         path = raw + ".jpg"
         file_info = bot.get_file(raw)
@@ -332,8 +329,6 @@ def photo_handler(message):
         bot_elon.save()
         bot.send_message(message.from_user.id, "<b>3️⃣So`nggi rasmni yuboring</b>")
     elif bot_elon.step == 14:
-        print('14')
-        print(message)
         raw = message.photo[1].file_id
         path = raw + ".jpg"
         file_info = bot.get_file(raw)
@@ -394,7 +389,7 @@ def call_data(call):
         # btn2 = types.KeyboardButton('Telefon')
         # btn3 = types.KeyboardButton('Notebook')
         markup.add(btn1, btn, btn2)
-        bot.send_message(call.from_user.id, "<b>✅E`lon beror qilindi!\nE`lon turini tanlang!</b>", reply_markup=markup)
+        bot.send_message(call.from_user.id, "<b>✅E`lon bekor qilindi!\nE`lon turini tanlang!</b>", reply_markup=markup)
         bot_user = User.objects.create(user_id=call.from_user.id, username=call.from_user.username)
         bot_user.save()
         elon = Elon.objects.create(
