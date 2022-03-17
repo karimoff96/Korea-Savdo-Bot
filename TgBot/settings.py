@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-j$8x06mt3!txdgxstesf3c04%2y(7^b_4+n!m+@^s3j#nw4gpy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['reklama-bot.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['165.232.65.109', '127.0.0.1']
 
 # Application definition            reklama-bot.herokuapp.com
 
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'TgBot.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'firstproject',
+        'USER': 'doniyor ',
+        'PASSWORD': 'doniyor ',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -115,7 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -126,3 +130,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
