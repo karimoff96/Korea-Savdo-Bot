@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-j$8x06mt3!txdgxstesf3c04%2y(7^b_4+n!m+@^s3j#nw4gpy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['165.232.65.109', '127.0.0.1']
+ALLOWED_HOSTS = ['167.172.35.174']
 
 # Application definition            reklama-bot.herokuapp.com
 
